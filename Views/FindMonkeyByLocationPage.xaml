@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MonkeysMVVM.Views.FindMonkeyByLocationPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModel="clr-namespace:MonkeysMVVM.ViewModels"
+    Title="FindMonkeyByLocationPage"
+    x:DataType="viewModel:FindMonkeyByLocationPageViewModel">
+    <VerticalStackLayout
+        Margin="15"
+        FlowDirection="RightToLeft"
+        Spacing="5">
+        <Entry
+            Margin="15"
+            Placeholder="הכנס שם מדינה"
+            Text="{Binding Country}" />
+        <Button
+            Command="{Binding SearchCommand}"
+            Text="חפש"
+            WidthRequest="100" />
+        <Label FontSize="15" HorizontalOptions="Center">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span FontAttributes="Bold" Text="מספר קופים שנמצאו:" />
+                    <Span Text="{Binding Count}" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <Label
+            Grid.Row="1"
+            FontSize="15"
+            HorizontalOptions="Center"
+            Text="{Binding Name}" />
+        <Border HeightRequest="200" WidthRequest="200">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="100" />
+            </Border.StrokeShape>
+            <Image
+                Grid.Row="2"
+                Margin="15"
+                Aspect="Fill"
+                HeightRequest="200"
+                HorizontalOptions="Center"
+                Source="{Binding ImageUrl}"
+                WidthRequest="200" />
+        </Border>
+
+    </VerticalStackLayout>
+</ContentPage>
