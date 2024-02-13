@@ -10,7 +10,8 @@
 
     <ScrollView>
         <StackLayout>
-            <CollectionView EmptyView="No Monkeys" ItemsSource="{Binding Monkeys}">
+            <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding LoadMonkeysCommand}">
+                <CollectionView EmptyView="No Monkeys" ItemsSource="{Binding Monkeys}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Monkey">
                         <Frame Padding="5">
@@ -23,6 +24,7 @@
                 </CollectionView.ItemTemplate>
 
             </CollectionView>
+            </RefreshView>
             <Button Command="{Binding LoadMonkeysCommand}" Text="Insert Monkey" />
         </StackLayout>
 
