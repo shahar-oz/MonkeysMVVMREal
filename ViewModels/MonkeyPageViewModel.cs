@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Google.Crypto.Tink.Signature;
+
 
 namespace MonkeysMVVM.ViewModels
 {
@@ -23,7 +23,7 @@ namespace MonkeysMVVM.ViewModels
             LoadMonkeysCommand = new Command(async () => await LoadMonkeys());
         }
 
-        private Task LoadMonkeys()
+        private async Task LoadMonkeys()
         {
             MonkeysService monkeys = new MonkeysService();
             var list = monkeys.GetMonkey();
@@ -31,7 +31,7 @@ namespace MonkeysMVVM.ViewModels
             {
                 Monkeys.Add(list[i]);
             }
-            return Task.CompletedTask;
+            
          }
     }
 }
