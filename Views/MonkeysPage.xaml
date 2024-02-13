@@ -10,20 +10,23 @@
 
     <ScrollView>
         <StackLayout>
-            <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding LoadMonkeysCommand}">
-                <CollectionView EmptyView="No Monkeys" ItemsSource="{Binding Monkeys}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Monkey">
-                        <Frame Padding="5">
-                            <Grid ColumnDefinitions="*,*" RowDefinitions="*">
-                                <Image Aspect="AspectFit" Source="{Binding ImageUrl}" />
-                                <Label Grid.Column="1" Text="{Binding Name}" />
-                            </Grid>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
+            <RefreshView Command="{Binding LoadMonkeysCommand}" IsRefreshing="{Binding IsRefreshing}">
+                <CollectionView
+                    EmptyView="No Monkeys"
+                    ItemsSource="{Binding Monkeys}"
+                    SelectionMode="Single" SelectedItem="{Binding Monkeys}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Monkey">
+                            <Frame Padding="5">
+                                <Grid ColumnDefinitions="*,*" RowDefinitions="*">
+                                    <Image Aspect="AspectFit" Source="{Binding ImageUrl}" />
+                                    <Label Grid.Column="1" Text="{Binding Name}" />
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
 
-            </CollectionView>
+                </CollectionView>
             </RefreshView>
             <Button Command="{Binding LoadMonkeysCommand}" Text="Insert Monkey" />
         </StackLayout>
