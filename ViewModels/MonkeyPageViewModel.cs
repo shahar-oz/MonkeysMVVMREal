@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Google.Crypto.Tink.Signature;
+
 
 namespace MonkeysMVVM.ViewModels
 {
@@ -15,7 +15,8 @@ namespace MonkeysMVVM.ViewModels
     {
         public ObservableCollection<Monkey> Monkeys { get; set; }
         public ICommand LoadMonkeysCommand { get; private set; }
-
+        private bool isRefreshing;
+        public bool IsRefreshing { get => isRefreshing; set { isRefreshing = value; OnPropertyChanged(); } }
         public MonkeyPageViewModel()
         {
             Monkeys = new ObservableCollection<Monkey>();
@@ -23,15 +24,17 @@ namespace MonkeysMVVM.ViewModels
             LoadMonkeysCommand = new Command(async () => await LoadMonkeys());
         }
 
-        private Task LoadMonkeys()
+        private async Task LoadMonkeys()
         {
+            IsRefreshing = true;
             MonkeysService monkeys = new MonkeysService();
             var list = monkeys.GetMonkey();
             for(int i =0; i < list.Count; i++)
             {
                 Monkeys.Add(list[i]);
             }
-            return Task.CompletedTask;
+            IsRefreshing = false;
+           
          }
     }
 }

@@ -3,18 +3,33 @@
     x:Class="MonkeysMVVM.Views.MonkeysPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:MonkeysMVVM.Models"
     xmlns:viewmodel="clr-namespace:MonkeysMVVM.ViewModels"
     Title="MonkeysPage"
     x:DataType="viewmodel:MonkeyPageViewModel">
 
     <ScrollView>
+
         <StackLayout>
-            <CollectionView EmptyView="No Monkeys" ItemsSource="{Binding Monkeys}" />
-            <Button Command="{Binding LoadMonkeysCommand}" Text="Insert Monkey"/>
-            
-
+            <Button Command="{Binding LoadMonkeysCommand}" Text="Load Monkey" />
+            <RefreshView Command="{Binding LoadMonkeysCommand}" IsRefreshing="{Binding IsRefreshing}">
+                <CollectionView
+                    EmptyView="No Monkeys"
+                    ItemsSource="{Binding Monkeys}"
+                    SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Monkey">
+                            <Frame>
+                                <Grid ColumnDefinitions="*,*" RowDefinitions="*">
+                                    <Image Aspect="AspectFit" Source="{Binding ImageUrl}" />
+                                    <Label Grid.Column="1" Text="{Binding Name}" />
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
         </StackLayout>
-
     </ScrollView>
 
 </ContentPage>
