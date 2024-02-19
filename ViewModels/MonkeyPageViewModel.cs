@@ -13,16 +13,23 @@ namespace MonkeysMVVM.ViewModels
 {
     public class MonkeyPageViewModel:ViewModel
     {
+
         public ObservableCollection<Monkey> Monkeys { get; set; }
         private bool isRefreshing;
         public bool IsRefreshing { get => isRefreshing; set { isRefreshing = value; OnPropertyChanged(); } }
         public ICommand LoadMonkeysCommand { get; private set; }
+        public ICommand NavigateShowMonkeys {  get; private set; }
 
         public MonkeyPageViewModel()
         {
             Monkeys = new ObservableCollection<Monkey>();
-
+            NavigateShowMonkeys = new Command(async () => await ShowMonkeysNav());
             LoadMonkeysCommand = new Command(async () => await LoadMonkeys());
+        }
+
+        private async Task ShowMonkeysNav()
+        {
+            AppShell.Current.GoToAsync("SMV");
         }
 
         private async Task LoadMonkeys()
