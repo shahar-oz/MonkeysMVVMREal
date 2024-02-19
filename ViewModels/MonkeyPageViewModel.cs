@@ -13,6 +13,8 @@ namespace MonkeysMVVM.ViewModels
 {
     public class MonkeyPageViewModel:ViewModel
     {
+        Monkey SelectedMonkey { get; set; }
+        public ICommand NavigateMonkeysView { get; private set; }
         public ObservableCollection<Monkey> Monkeys { get; set; }
         public ICommand LoadMonkeysCommand { get; private set; }
         private bool isRefreshing;
@@ -20,10 +22,16 @@ namespace MonkeysMVVM.ViewModels
         public MonkeyPageViewModel()
         {
             Monkeys = new ObservableCollection<Monkey>();
-
+            NavigateMonkeysView = new Command(async () => await Navigate());
             LoadMonkeysCommand = new Command(async () => await LoadMonkeys());
         }
 
+        private async Task Navigate()
+        {
+            Dictionary<string, object> data = new Dictionary<string, object>();
+            data.Add("Monkey", SelectedMonkey);
+            AppShell.Current.GoToAsync("ShowMonkey");
+        }
         private async Task LoadMonkeys()
         {
             IsRefreshing = true;
@@ -35,6 +43,6 @@ namespace MonkeysMVVM.ViewModels
             }
             IsRefreshing = false;
            
-         }
+        }
     }
 }

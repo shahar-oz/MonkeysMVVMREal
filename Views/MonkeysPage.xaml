@@ -11,6 +11,8 @@
     <ScrollView>
 
         <StackLayout>
+
+            <Button Text="לך לשואו מנקיז ויו"  Command="{Binding NavigateMonkeysView}"/>
             <Button Command="{Binding LoadMonkeysCommand}" Text="Load Monkey" />
             <RefreshView Command="{Binding LoadMonkeysCommand}" IsRefreshing="{Binding IsRefreshing}">
                 <CollectionView
