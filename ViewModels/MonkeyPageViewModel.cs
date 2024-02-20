@@ -1,5 +1,6 @@
 ﻿using MonkeysMVVM.Models;
 using MonkeysMVVM.Services;
+using MonkeysMVVM.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,14 +12,18 @@ using System.Windows.Input;
 
 namespace MonkeysMVVM.ViewModels
 {
+   
     public class MonkeyPageViewModel:ViewModel
     {
+        
 
         public ObservableCollection<Monkey> Monkeys { get; set; }
         private bool isRefreshing;
         public bool IsRefreshing { get => isRefreshing; set { isRefreshing = value; OnPropertyChanged(); } }
         public ICommand LoadMonkeysCommand { get; private set; }
         public ICommand NavigateShowMonkeys {  get; private set; }
+
+        public Monkey SelectedMonkey { get; set; }
 
         public MonkeyPageViewModel()
         {
@@ -29,7 +34,9 @@ namespace MonkeysMVVM.ViewModels
 
         private async Task ShowMonkeysNav()
         {
-            AppShell.Current.GoToAsync("SMV");
+            Dictionary<string,object> data = new Dictionary<string, object>();
+            data.Add("monkey", SelectedMonkey);
+            await AppShell.Current.GoToAsync("SMV",data);
         }
 
         private async Task LoadMonkeys()
