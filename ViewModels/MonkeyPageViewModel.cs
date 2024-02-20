@@ -13,7 +13,9 @@ namespace MonkeysMVVM.ViewModels
 {
     public class MonkeyPageViewModel:ViewModel
     {
-        Monkey SelectedMonkey { get; set; }
+
+       
+       public Monkey SelectedMonkey { get ; set; }
         public ICommand NavigateMonkeysView { get; private set; }
         public ObservableCollection<Monkey> Monkeys { get; set; }
         public ICommand LoadMonkeysCommand { get; private set; }
@@ -28,9 +30,10 @@ namespace MonkeysMVVM.ViewModels
 
         private async Task Navigate()
         {
+            
             Dictionary<string, object> data = new Dictionary<string, object>();
             data.Add("Monkey", SelectedMonkey);
-            AppShell.Current.GoToAsync("ShowMonkey");
+            await AppShell.Current.GoToAsync("ShowMonkey", data);
         }
         private async Task LoadMonkeys()
         {
