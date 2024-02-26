@@ -1,5 +1,4 @@
-﻿
-//using AndroidX.ConstraintLayout.Core.Motion.Key;
+
 using MonkeysMVVM.Models;
 using MonkeysMVVM.Services;
 using System;
@@ -11,22 +10,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
+
 namespace MonkeysMVVM.ViewModels
 {
-    [QueryProperty (nameof(Monkey),"monkey")]
-    public class ShowMonkeyViewModel:ViewModel
+    [QueryProperty(nameof(Monkey), "Monkey")]
+    public class ShowMonkeyViewModel : ViewModel
     {
         Monkey monkey;
-        public Monkey Monkey { get { return monkey; } set { monkey = value; GetMonkey(); } }
+        public Monkey Monkey{ get {return monkey; } set{monkey = value; GetMonkey(); } }
         public ICommand ShowMonkeyCommand { get; set; }
         public ICommand ShowMonkeyImage { get; set; }   
         private string name;
-        public string Name 
-        { 
-            get { return this.name; } 
+        public string Name
+        { //this.name
+            get { return name; } 
             set
             {
                 this.name = value;
+               
                 OnPropertyChanged();
             } 
         }
@@ -36,6 +37,7 @@ namespace MonkeysMVVM.ViewModels
             get { return this.location; }
             set
             {
+               
                 this.location = value;
                 OnPropertyChanged();
             }
@@ -44,10 +46,12 @@ namespace MonkeysMVVM.ViewModels
         private string imageUrl;
         public string ImageUrl
         {
+            //this.imageUrl
             get { return this.imageUrl; }
             set
             {
                 this.imageUrl = value;
+               
                 OnPropertyChanged();
             }
         }

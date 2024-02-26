@@ -1,6 +1,5 @@
-﻿using MonkeysMVVM.Models;
+using MonkeysMVVM.Models;
 using MonkeysMVVM.Services;
-using MonkeysMVVM.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,44 +11,43 @@ using System.Windows.Input;
 
 namespace MonkeysMVVM.ViewModels
 {
-   
     public class MonkeyPageViewModel:ViewModel
     {
-        
-
+        private MonkeysService monkeysService;
+       
+       public Monkey SelectedMonkey { get ; set; }
+        public ICommand NavigateMonkeysView { get; private set; }
         public ObservableCollection<Monkey> Monkeys { get; set; }
+        public ICommand LoadMonkeysCommand { get; private set; }
         private bool isRefreshing;
         public bool IsRefreshing { get => isRefreshing; set { isRefreshing = value; OnPropertyChanged(); } }
-        public ICommand LoadMonkeysCommand { get; private set; }
-        public ICommand NavigateShowMonkeys {  get; private set; }
-
-        public Monkey SelectedMonkey { get; set; }
-
-        public MonkeyPageViewModel()
+        public MonkeyPageViewModel(MonkeysService mservice)
         {
+            monkeysService = mservice;
             Monkeys = new ObservableCollection<Monkey>();
-            NavigateShowMonkeys = new Command(async () => await ShowMonkeysNav());
+            NavigateMonkeysView = new Command(async () => await Navigate());
             LoadMonkeysCommand = new Command(async () => await LoadMonkeys());
+            
         }
 
-        private async Task ShowMonkeysNav()
+        private async Task Navigate()
         {
-            Dictionary<string,object> data = new Dictionary<string, object>();
-            data.Add("monkey", SelectedMonkey);
-            await AppShell.Current.GoToAsync("SMV",data);
+            
+            Dictionary<string, object> data = new Dictionary<string, object>();
+            data.Add("Monkey", SelectedMonkey);
+            await AppShell.Current.GoToAsync("ShowMonkey", data);
         }
-
         private async Task LoadMonkeys()
         {
             IsRefreshing = true;
             MonkeysService monkeys = new MonkeysService();
             var list = monkeys.GetMonkey();
-            for (int i = 0; i < list.Count; i++)
+            for(int i =0; i < list.Count; i++)
             {
                 Monkeys.Add(list[i]);
             }
-              IsRefreshing=false;
-            
-         }
+            IsRefreshing = false;
+           
+        }
     }
 }

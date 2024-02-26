@@ -9,7 +9,11 @@
     x:DataType="viewmodel:MonkeyPageViewModel">
 
     <ScrollView>
+
         <StackLayout>
+
+            <Button Command="{Binding NavigateMonkeysView}" Text="לך לשואו מנקיז ויו" />
+            <Button Command="{Binding LoadMonkeysCommand}" Text="Load Monkey" />
             <RefreshView Command="{Binding LoadMonkeysCommand}" IsRefreshing="{Binding IsRefreshing}">
                 <CollectionView
                     EmptyView="No Monkeys"
@@ -18,21 +22,17 @@
                     SelectionMode="Single">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:Monkey">
-                          
-                                <Grid ColumnDefinitions="*,*" RowDefinitions="*">
-                                    <Image Aspect="AspectFit" Source="{Binding ImageUrl}" />
-                                    <Label Grid.Column="1" Text="{Binding Name}" />
-                                </Grid>
-                         
+
+                            <Grid ColumnDefinitions="*,*" RowDefinitions="*">
+                                <Image Aspect="AspectFit" Source="{Binding ImageUrl}" />
+                                <Label Grid.Column="1" Text="{Binding Name}" />
+                            </Grid>
+
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
-
                 </CollectionView>
             </RefreshView>
-            <Button Command="{Binding NavigateShowMonkeys}" Text="Go To Show Monkeys" />
-            <Button Command="{Binding LoadMonkeysCommand}" Text="Insert Monkey" />
         </StackLayout>
-
     </ScrollView>
 
 </ContentPage>
