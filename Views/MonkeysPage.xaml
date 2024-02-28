@@ -12,7 +12,7 @@
 
         <StackLayout>
 
-            <Button Command="{Binding NavigateMonkeysView}" Text="לך לשואו מנקיז ויו" />
+            <Button Command="{Binding NavigateMonkeysView}" Text="Show Monkeys View" />
             <Button Command="{Binding LoadMonkeysCommand}" Text="Load Monkey" />
             <RefreshView Command="{Binding LoadMonkeysCommand}" IsRefreshing="{Binding IsRefreshing}">
                 <CollectionView
